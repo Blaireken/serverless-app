@@ -1,18 +1,19 @@
-org: newthingade
-app: serverless
-service: serverless
+org: muriithiken
+app: serverless-app
+service: serverless-app
 
 plugins:
   - serverless-webpack
   - serverless-iam-roles-per-function
   - serverless-reqvalidator-plugin
   - serverless-aws-documentation
+  
 
 provider:
   name: aws
   runtime: nodejs12.x
   stage: ${opt:stage, 'dev'}
-  region: ${opt:region, 'us-east-2'}
+  region: ${opt:region, 'us-east-1'}
   
 #  X-Ray Tracing
   tracing: 
@@ -21,8 +22,8 @@ provider:
 
   environment:
     PROJECT_NAME: udacity
-    TODOS_TABLE: udacity-serverless-application-todo-${self:provider.stage}
-    S3_BUCKET_NAME: udacity-serverless-application-todo-${self:provider.stage}
+    TODOS_TABLE: udacity-serverless-app-${self:provider.stage}
+    S3_BUCKET_NAME: udacity-serverless-app-${self:provider.stage}
 
 custom:
   documentation:
@@ -226,7 +227,7 @@ resources:
 
     RequestBodyValidator:
       Type: AWS::ApiGateway::RequestValidator
-      Properties:
+      Properties: 
         Name: 'request-body-validator'
         RestApiId:
           Ref: ApiGatewayRestApi
